@@ -1,6 +1,3 @@
--- LocalScript Auto Joiner Profissional, Movível
--- Créditos: by: dark
-
 local Players = game:GetService("Players")
 local TeleportService = game:GetService("TeleportService")
 local UserInputService = game:GetService("UserInputService")
@@ -9,7 +6,6 @@ local player = Players.LocalPlayer
 local PLACE_ID = 109983668079237
 local processedJobIds = {}
 
--- Validação de JobId
 local function isValidJobId(jobId)
     return string.match(jobId, "%w+%-%w+%-%w+%-%w+%-%w+")
 end
@@ -22,7 +18,6 @@ local function autoJoin(jobId)
     TeleportService:TeleportToPlaceInstance(PLACE_ID, jobId, player)
 end
 
--- GUI
 local ScreenGui = Instance.new("ScreenGui")
 ScreenGui.Name = "AutoJoinerGUI"
 ScreenGui.Parent = player:WaitForChild("PlayerGui")
@@ -38,7 +33,6 @@ Frame.Parent = ScreenGui
 local UICorner = Instance.new("UICorner", Frame)
 UICorner.CornerRadius = UDim.new(0, 15)
 
--- Header (para mover)
 local Header = Instance.new("Frame")
 Header.Size = UDim2.new(1,0,0,35)
 Header.BackgroundColor3 = Color3.fromRGB(50,50,60)
@@ -56,7 +50,6 @@ Title.TextScaled = true
 Title.Font = Enum.Font.GothamBold
 Title.Parent = Header
 
--- Créditos
 local Credit = Instance.new("TextLabel")
 Credit.Size = UDim2.new(1, -10, 0, 20)
 Credit.Position = UDim2.new(0, 5, 1, -25)
@@ -69,7 +62,6 @@ Credit.TextSize = 14
 Credit.TextXAlignment = Enum.TextXAlignment.Right
 Credit.Parent = Frame
 
--- TextBox
 local TextBox = Instance.new("TextBox")
 TextBox.Size = UDim2.new(0.9, 0, 0, 50)
 TextBox.Position = UDim2.new(0.05, 0, 0, 50)
@@ -85,17 +77,15 @@ TextBox.Parent = Frame
 local tbCorner = Instance.new("UICorner", TextBox)
 tbCorner.CornerRadius = UDim.new(0,10)
 
--- Auto join ao colar JobId
 TextBox:GetPropertyChangedSignal("Text"):Connect(function()
     local jobId = TextBox.Text or ""
-    jobId = jobId:match("^%s*(.-)%s*$") -- trim
+    jobId = jobId:match("^%s*(.-)%s*$")
     if jobId ~= "" and isValidJobId(jobId) then
         autoJoin(jobId)
         TextBox.Text = ""
     end
 end)
 
--- Drag simples e funcional
 local dragging = false
 local dragStart = nil
 local startPos = nil
